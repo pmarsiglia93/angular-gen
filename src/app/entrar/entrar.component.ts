@@ -32,8 +32,10 @@ constructor(
         environment.token = this.usuarioLogin.token
         environment.nome = this.usuarioLogin.nome
         environment.foto = this.usuarioLogin.foto
+        environment.tipo = this.usuarioLogin.tipo
         environment.id = this.usuarioLogin.id
-        
+        console.log(environment)
+
       },
       error:erro => {
         if(erro.status == 401){
