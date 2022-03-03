@@ -10,6 +10,8 @@ import { AuthService } from '../service/auth.service';
   templateUrl: './entrar.component.html',
   styleUrls: ['./entrar.component.css']
 })
+
+
 export class EntrarComponent implements OnInit {
 usuarioLogin: UserLogin = new UserLogin()
 
@@ -25,20 +27,21 @@ constructor(
     this.auth.entrar(this.usuarioLogin).subscribe({
       next: (resp: UserLogin) => {
         this.usuarioLogin = resp
+        this.router.navigate(['/inicio'])
 
         environment.token = this.usuarioLogin.token
         environment.nome = this.usuarioLogin.nome
         environment.foto = this.usuarioLogin.foto
         environment.id = this.usuarioLogin.id
-
-        this.router.navigate(['/inicio'])
+        
       },
       error:erro => {
         if(erro.status == 401){
+          alert("Usuário ou senha inválidos")
+        } if(erro.status == 500){
           alert("Usuário ou senha inválidos")
         }
       }
     })
   }
-
 }

@@ -16,21 +16,21 @@ export class AuthService {
   ) { }
 
 entrar(userLogin: UserLogin): Observable<UserLogin>{
-  return this.http.post<UserLogin>('https://pmarsiglia93-projetoblog.herokuapp.com/usuario/logar', userLogin)
+  return this.http.post<UserLogin>('https://pmarsiglia93-projetoblog.herokuapp.com/usuarios/logar', userLogin)
   }
 
 cadastrar(usuario:Usuario): Observable<Usuario>{
-  return this.http.post<Usuario>('https://pmarsiglia93-projetoblog.herokuapp.com/usuario/cadastrar', usuario)
+  return this.http.post<Usuario>('https://pmarsiglia93-projetoblog.herokuapp.com/usuarios/cadastrar', usuario)
 
   }
 
 logado(){
   let ok: boolean = false
 
-if(environment.token != ''){
-ok = true
-}
-  return ok
-}
+  if(environment.token != ''){
+  ok = true
+  }
+    return ok
+  }
 
-}
+  }
