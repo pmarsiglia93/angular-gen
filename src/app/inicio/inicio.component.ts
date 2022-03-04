@@ -1,3 +1,4 @@
+import { AuthService } from './../service/auth.service';
 import { Usuario } from './../model/Usuario';
 import { PostagemService } from './../service/postagem.service';
 import { TemaService } from './../service/tema.service';
@@ -28,7 +29,8 @@ export class InicioComponent implements OnInit {
   constructor(
     private router: Router,
     private temaService: TemaService,
-    private postagemService: PostagemService
+    private postagemService: PostagemService,
+    private authService: AuthService
     ) { }
 
   ngOnInit(){
@@ -36,25 +38,32 @@ export class InicioComponent implements OnInit {
     if(environment.token == ''){
       this.router.navigate(['/entrar'])
     }
+
     this.listarTemas()
     this.listarPostagens()
   }
 
-  listarTemas(){
+  listarTemas(){ //getAllTemas
     this.temaService.getAllTemas().subscribe((resp: Tema[]) =>{
       this.listaTemas = resp
     })
   }
 
-  buscarTemaPorId(){
+  buscarTemaPorId(){ //findByIdTema()
     this.temaService.getByIdTema(this.idTema).subscribe((resp: Tema) =>{
       this.tema = resp
     })
   }
 
-  listarPostagens(){
+  listarPostagens(){ //getAllPostagens
     this.postagemService.getAllPostagens().subscribe((resp: Postagem[]) =>{
       this.listaPostagens = resp
+    })
+  }
+
+  findByIdUsuario(){
+    this.authService.getByIdUsuario(this.idUsuario).subscribe((resp: Usuario) =>{
+      this.usuario = resp
     })
   }
 
@@ -68,7 +77,8 @@ export class InicioComponent implements OnInit {
     this.postagemService.postPostagem(this.postagem).subscribe((resp: Postagem) =>{
       this.postagem = resp;
       alert('Postagem efetuada')
-      this.postagem = new Postagem()
+      this.postagem = new Postagem() //Limpa os campos
+      this.listarPostagens()
     })
   }
 }

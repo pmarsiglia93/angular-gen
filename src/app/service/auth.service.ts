@@ -11,17 +11,19 @@ import { UserLogin } from '../model/UserLogin';
 })
 export class AuthService {
 
-  constructor(
-    private http:HttpClient
-  ) { }
+constructor(private http:HttpClient) { }
 
-entrar(userLogin: UserLogin): Observable<UserLogin>{
+  entrar(userLogin: UserLogin): Observable<UserLogin>{
   return this.http.post<UserLogin>('https://pmarsiglia93-projetoblog.herokuapp.com/usuarios/logar', userLogin)
   }
 
-cadastrar(usuario:Usuario): Observable<Usuario>{
+  cadastrar(usuario:Usuario): Observable<Usuario>{
   return this.http.post<Usuario>('https://pmarsiglia93-projetoblog.herokuapp.com/usuarios/cadastrar', usuario)
 
+  }
+
+  getByIdUsuario(id: number): Observable<Usuario>{
+    return this.http.get<Usuario>(`https://pmarsiglia93-projetoblog.herokuapp.com/usuarios/${id}`)
   }
 
 logado(){
