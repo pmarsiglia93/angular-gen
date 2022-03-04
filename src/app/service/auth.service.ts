@@ -34,3 +34,7 @@ logado(){
   }
 
   }
+
+
+  //Precisa ter o token Headears tem que fazer o Put do usuário.
+  //Trocar do metodo Post para o Put.
